@@ -1,14 +1,13 @@
-const Product = require("../models/Product");
+const productServices = require("../services/product.services");
 
-module.exports.getProducts = async (req, res) => {
-  const products = await Product.find();
+exports.getProducts = async (req, res) => {
+  const products = await productServices.getProductsService();
   res.send(products);
 };
 
-module.exports.createProduct = async (req, res) => {
+exports.createProduct = async (req, res) => {
   try {
-    const product = new Product(req.body);
-    const result = await product.save();
+    const result = await productServices.createProductService(req.body);
     result.logger();
     res.status(200).send({
       status: "success",
